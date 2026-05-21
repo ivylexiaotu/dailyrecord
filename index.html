@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>轻单 · 日课与确幸</title>
-    <!-- canvas-confetti 轻庆祝 -->
+    <title>轻单 · 日课与确幸 · 待办日历</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <style>
         * {
@@ -13,7 +12,6 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
         body {
             background-color: #f5f7fc;
             font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, 'Noto Sans', sans-serif;
@@ -23,8 +21,6 @@
             justify-content: center;
             align-items: center;
         }
-
-        /* 极简主容器 */
         .app-wrapper {
             max-width: 580px;
             width: 100%;
@@ -34,12 +30,9 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
-
         .app-inner {
             padding: 24px 20px 28px;
         }
-
-        /* 头部极简 */
         .global-header {
             display: flex;
             justify-content: space-between;
@@ -70,11 +63,9 @@
             background: #e4e8ef;
             transform: scale(0.94);
         }
-
-        /* tab栏 */
         .tab-bar {
             display: flex;
-            gap: 12px;
+            gap: 6px;
             margin-bottom: 22px;
             border-bottom: 1px solid #eef2f8;
             padding-bottom: 8px;
@@ -83,10 +74,10 @@
         .tab-btn {
             background: none;
             border: none;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
             color: #8b9abb;
-            padding: 6px 2px;
+            padding: 6px 8px;
             cursor: pointer;
             transition: 0.2s;
             position: relative;
@@ -104,8 +95,6 @@
             background: #2b4f6e;
             border-radius: 4px;
         }
-
-        /* 页面容器 */
         .page {
             display: none;
             animation: fade 0.2s ease;
@@ -117,8 +106,6 @@
             from { opacity: 0; transform: translateY(4px);}
             to { opacity: 1; transform: translateY(0);}
         }
-
-        /* ----- 通用卡片样式 ----- */
         .date-card {
             background: #fafcff;
             border-radius: 24px;
@@ -149,8 +136,6 @@
             color: #8e9db5;
             margin-top: 4px;
         }
-
-        /* 打卡列表 */
         .tasks-header {
             display: flex;
             justify-content: space-between;
@@ -258,8 +243,6 @@
             font-weight: 500;
             color: #2f5d7e;
         }
-
-        /* 小确幸记录页 */
         .today-greeting {
             font-size: 15px;
             color: #61738f;
@@ -340,8 +323,6 @@
             text-align: right;
             margin-top: 10px;
         }
-
-        /* 日历通用样式 (极简网格) */
         .calendar-container {
             background: #ffffff;
             border-radius: 28px;
@@ -405,20 +386,120 @@
         .cal-day .day-number {
             font-weight: 500;
         }
-        .cal-day .check-mark {
+        .badge-mark {
             font-size: 11px;
             margin-top: 2px;
             font-weight: 500;
         }
-        .cal-day .check-mark span {
-            background: #e8f0fe;
-            padding: 2px 5px;
-            border-radius: 30px;
-            font-size: 10px;
+        .bullet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
         }
-        .grat-mark {
+        .bullet-stats {
+            font-size: 13px;
+            color: #7c8aa8;
+        }
+        .bullet-list {
+            max-height: 380px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .bullet-item {
+            background: #ffffff;
+            border: 1px solid #eef2f9;
+            border-radius: 28px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.1s;
+        }
+        .bullet-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .bullet-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 30px;
+            border: 2px solid #bccbdf;
+            background: white;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #2b6b46;
+        }
+        .bullet-checkbox.completed {
+            background: #e6f0ea;
+            border-color: #6f9e82;
+        }
+        .bullet-text {
+            font-size: 15px;
+            color: #1f2f44;
+            word-break: break-word;
+            flex: 1;
+        }
+        .bullet-text.completed-text {
+            text-decoration: line-through;
+            color: #9aabca;
+        }
+        .bullet-date {
             font-size: 12px;
-            margin-top: 2px;
+            background: #f0f4fa;
+            padding: 4px 10px;
+            border-radius: 30px;
+            color: #5b7292;
+        }
+        .bullet-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .bullet-edit, .bullet-delete {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #bfccdf;
+            cursor: pointer;
+        }
+        .add-bullet-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+            background: #f8fafd;
+            border-radius: 60px;
+            padding: 6px 12px;
+            border: 1px solid #eef2f8;
+        }
+        .add-bullet-bar input {
+            flex: 2;
+            border: none;
+            background: transparent;
+            padding: 10px 0;
+            font-size: 14px;
+            outline: none;
+        }
+        .add-bullet-bar input[type="date"] {
+            flex: 1;
+            font-size: 13px;
+        }
+        .add-bullet-bar button {
+            background: #eef2f8;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-weight: 500;
+            color: #2f5d7e;
         }
         .footer-note {
             text-align: center;
@@ -443,9 +524,6 @@
             pointer-events: none;
             white-space: nowrap;
         }
-        button {
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -458,11 +536,13 @@
         <div class="tab-bar">
             <button class="tab-btn active" data-tab="check">打卡</button>
             <button class="tab-btn" data-tab="journal">确幸</button>
+            <button class="tab-btn" data-tab="bullet">待办·子弹</button>
             <button class="tab-btn" data-tab="calCheck">打卡日历</button>
             <button class="tab-btn" data-tab="calGrat">确幸日历</button>
+            <button class="tab-btn" data-tab="calTodo">待办日历</button>
         </div>
 
-        <!-- 页面1: 打卡页 -->
+        <!-- 打卡页 -->
         <div id="checkPage" class="page active-page">
             <div class="date-card"><div class="weekday" id="checkWeekday"></div><div class="full-date" id="checkFullDate"></div></div>
             <div class="stats-mini">
@@ -475,7 +555,7 @@
             <div class="add-bar"><input type="text" id="newTaskInput" placeholder="新事项，如：晨间阅读" maxlength="24"><button id="addTaskBtn">添加</button></div>
         </div>
 
-        <!-- 页面2: 小确幸记录页 -->
+        <!-- 小确幸页 -->
         <div id="journalPage" class="page">
             <div class="today-greeting" id="journalDateDisplay"></div>
             <div class="gratitude-list">
@@ -488,9 +568,24 @@
             <div class="quote-text" id="quoteText">“快乐是种能力，也是微小瞬间的总和。”</div><div class="quote-author" id="quoteAuthor">—— 生活哲思</div></div>
         </div>
 
-        <!-- 页面3: 打卡日历 (标记已打卡事项) -->
+        <!-- 子弹笔记待办页 -->
+        <div id="bulletPage" class="page">
+            <div class="bullet-header">
+                <h3>📌 子弹笔记 · 极简待办</h3>
+                <div class="bullet-stats" id="bulletStats">未完成 0</div>
+            </div>
+            <div class="bullet-list" id="bulletListContainer"></div>
+            <div class="add-bullet-bar">
+                <input type="text" id="newTodoText" placeholder="写一个任务... 例如：买牛奶" maxlength="60">
+                <input type="date" id="newTodoDate">
+                <button id="addTodoBtn">+ 添加</button>
+            </div>
+            <div class="footer-note">📅 设置截止日期，未完成事项会显示在待办日历中</div>
+        </div>
+
+        <!-- 打卡日历 -->
         <div id="calCheckPage" class="page">
-            <div class="calendar-container" id="checkCalendar">
+            <div class="calendar-container">
                 <div class="calendar-header">
                     <button class="cal-nav-btn" id="checkPrevMonth">←</button>
                     <span class="calendar-month-year" id="checkMonthYear">2025年5月</span>
@@ -502,9 +597,9 @@
             </div>
         </div>
 
-        <!-- 页面4: 小确幸日历 (汇总) -->
+        <!-- 确幸日历 -->
         <div id="calGratPage" class="page">
-            <div class="calendar-container" id="gratCalendar">
+            <div class="calendar-container">
                 <div class="calendar-header">
                     <button class="cal-nav-btn" id="gratPrevMonth">←</button>
                     <span class="calendar-month-year" id="gratMonthYear">2025年5月</span>
@@ -515,6 +610,20 @@
                 <div class="footer-note" style="margin-top:12px;">❤️ 显示当天小确幸数量 (1-3件)</div>
             </div>
         </div>
+
+        <!-- 待办日历 -->
+        <div id="calTodoPage" class="page">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="cal-nav-btn" id="todoPrevMonth">←</button>
+                    <span class="calendar-month-year" id="todoMonthYear">2025年5月</span>
+                    <button class="cal-nav-btn" id="todoNextMonth">→</button>
+                </div>
+                <div class="weekdays"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+                <div class="calendar-grid" id="todoCalendarGrid"></div>
+                <div class="footer-note" style="margin-top:12px;">❌ 数字表示该日期下未完成的待办事项数量</div>
+            </div>
+        </div>
         <div class="footer-note" style="border:none; margin-top:8px;">✨ 轻简记录 · 看见坚持与欢喜</div>
     </div>
 </div>
@@ -522,11 +631,11 @@
 
 <script>
     // ---------- 数据模型 ----------
-    let tasks = [];               // { id, name, order }
-    let taskCheckins = {};       // "taskId_YYYY-MM-DD": true
-    let gratitudes = {};         // "YYYY-MM-DD": [text1, text2, text3]
+    let tasks = [];
+    let taskCheckins = {};
+    let gratitudes = {};
+    let bulletTasks = [];
 
-    // 快乐语录库
     const HAPPY_QUOTES = [
         { text: "真正的快乐是内在的，它只有在人类的心灵里才能发现。", author: "布雷默" },
         { text: "让自己快乐的最好方法就是让别人快乐。", author: "马克·吐温" },
@@ -537,21 +646,25 @@
         { text: "保持热爱，奔赴山海；忠于自己，热爱生活。", author: "佚名" }
     ];
 
-    // 日历独立状态
-    let checkCalendarYear = 2025, checkCalendarMonth = 4;  // 0-index month
-    let gratCalendarYear = 2025, gratCalendarMonth = 4;
+    let checkCalendarYear, checkCalendarMonth;
+    let gratCalendarYear, gratCalendarMonth;
+    let todoCalendarYear, todoCalendarMonth;
 
     // 辅助函数
     function getTodayStr() {
         const d = new Date();
         return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     }
-
     function formatDateChinese(dateStr) { const [y,m,d]=dateStr.split('-'); return `${y}年${parseInt(m)}月${parseInt(d)}日`; }
+    function showToast(msg, dur=1500){ const t=document.getElementById('toast'); t.innerText=msg; t.style.opacity='1'; t.style.visibility='visible'; setTimeout(()=>{ t.style.opacity='0'; t.style.visibility='hidden'; },dur); }
+    function fireConfetti() { canvasConfetti({ particleCount: 60, spread: 50, origin: { y: 0.6 }, colors: ['#9ab8d9','#c8e0c8','#f7e2b0'] }); }
+    function escapeHtml(str){ return str.replace(/[&<>]/g,function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
 
-    // 保存/加载
+    // 存储
     function saveTasksData() { localStorage.setItem('minimal_tasks', JSON.stringify(tasks)); localStorage.setItem('minimal_checkins', JSON.stringify(taskCheckins)); }
     function saveGratitudes() { localStorage.setItem('minimal_gratitudes', JSON.stringify(gratitudes)); }
+    function saveBulletTasks() { localStorage.setItem('bullet_tasks', JSON.stringify(bulletTasks)); }
+
     function loadData() {
         const storedTasks = localStorage.getItem('minimal_tasks');
         if(storedTasks) tasks = JSON.parse(storedTasks);
@@ -560,16 +673,21 @@
         if(storedCheckins) taskCheckins = JSON.parse(storedCheckins); else taskCheckins = {};
         const storedGrat = localStorage.getItem('minimal_gratitudes');
         if(storedGrat) gratitudes = JSON.parse(storedGrat); else gratitudes = {};
+        const storedBullet = localStorage.getItem('bullet_tasks');
+        if(storedBullet) bulletTasks = JSON.parse(storedBullet);
+        else bulletTasks = [
+            { id: 'b1', text: '✅ 完成项目方案', dueDate: getTodayStr(), completed: false, createdAt: new Date().toISOString() },
+            { id: 'b2', text: '📞 给家人打电话', dueDate: getTodayStr(), completed: false, createdAt: new Date().toISOString() }
+        ];
         tasks.sort((a,b)=>(a.order||0)-(b.order||0));
     }
 
-    // 打卡计数
+    // 打卡相关函数
     function getTodayCompleted() { const today=getTodayStr(); return tasks.filter(t=>taskCheckins[`${t.id}_${today}`]===true).length; }
     function getTotalCheckins() { return Object.values(taskCheckins).filter(v=>v===true).length; }
     function getTaskTotalCheckins(taskId) { return Object.keys(taskCheckins).filter(k=>k.startsWith(taskId+'_') && taskCheckins[k]===true).length; }
     function isTaskChecked(taskId,dateStr) { return taskCheckins[`${taskId}_${dateStr}`]===true; }
 
-    // 打卡操作
     function checkinTask(taskId) {
         const today=getTodayStr();
         if(isTaskChecked(taskId,today)) { showToast("今天已完成这项啦～",1000); return false; }
@@ -580,13 +698,36 @@
         fireConfetti();
         showToast(`🎉 「${task.name}」打卡成功！`,1500);
         renderCheckPage();
-        refreshCalendarIfActive();
+        renderCheckCalendar();
         return true;
     }
 
-    function fireConfetti() { canvasConfetti({ particleCount: 60, spread: 50, origin: { y: 0.6 }, colors: ['#9ab8d9','#c8e0c8','#f7e2b0'] }); }
+    function deleteTaskById(taskId){
+        if(!confirm("删除事项？相关打卡记录也会清除")) return;
+        tasks=tasks.filter(t=>t.id!==taskId);
+        Object.keys(taskCheckins).forEach(k=>{ if(k.startsWith(taskId+'_')) delete taskCheckins[k]; });
+        tasks.forEach((t,idx)=>t.order=idx+1);
+        saveTasksData();
+        renderCheckPage();
+        renderCheckCalendar();
+        showToast("已删除",1000);
+    }
+    function editTaskName(taskId){
+        const task=tasks.find(t=>t.id===taskId);
+        let newName=prompt("编辑事项",task.name);
+        if(newName && newName.trim()){ task.name=newName.trim(); saveTasksData(); renderCheckPage(); renderCheckCalendar(); showToast("已更新",800);}
+    }
+    function addNewTask(name){
+        if(!name.trim()){showToast("请输入事项",800); return false;}
+        const newId='task_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+        tasks.push({id:newId, name:name.trim(), order:tasks.length+1});
+        saveTasksData();
+        renderCheckPage();
+        renderCheckCalendar();
+        showToast(`➕ 添加「${name.trim()}」`,1200);
+        return true;
+    }
 
-    // 渲染打卡页
     function renderCheckPage() {
         const todayStr=getTodayStr();
         const now=new Date();
@@ -613,32 +754,6 @@
         document.querySelectorAll('.edit-task-name').forEach(icon=>icon.addEventListener('click',(e)=>{ const tid=icon.getAttribute('data-id'); editTaskName(tid); }));
     }
 
-    function deleteTaskById(taskId){
-        if(!confirm("删除事项？相关打卡记录也会清除")) return;
-        tasks=tasks.filter(t=>t.id!==taskId);
-        Object.keys(taskCheckins).forEach(k=>{ if(k.startsWith(taskId+'_')) delete taskCheckins[k]; });
-        tasks.forEach((t,idx)=>t.order=idx+1);
-        saveTasksData();
-        renderCheckPage();
-        refreshCalendarIfActive();
-        showToast("已删除",1000);
-    }
-    function editTaskName(taskId){
-        const task=tasks.find(t=>t.id===taskId);
-        let newName=prompt("编辑事项",task.name);
-        if(newName && newName.trim()){ task.name=newName.trim(); saveTasksData(); renderCheckPage(); refreshCalendarIfActive(); showToast("已更新",800);}
-    }
-    function addNewTask(name){
-        if(!name.trim()){showToast("请输入事项",800); return false;}
-        const newId='task_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
-        tasks.push({id:newId, name:name.trim(), order:tasks.length+1});
-        saveTasksData();
-        renderCheckPage();
-        refreshCalendarIfActive();
-        showToast(`➕ 添加「${name.trim()}」`,1200);
-        return true;
-    }
-
     // 小确幸
     function loadGratitudesForToday(){
         const today=getTodayStr();
@@ -655,7 +770,7 @@
         gratitudes[today]=[g1,g2,g3];
         saveGratitudes();
         showToast("🌷 小确幸已珍藏",1300);
-        refreshCalendarIfActive();
+        renderGratCalendar();
     }
     function updateJournalDate(){ document.getElementById('journalDateDisplay').innerHTML=`📅 ${formatDateChinese(getTodayStr())} · 收集三件温暖小事`; }
 
@@ -670,8 +785,7 @@
     }
     function initRandomQuote(){ currentQuoteIndex=Math.floor(Math.random()*HAPPY_QUOTES.length); refreshQuote(); }
 
-    // ---------- 日历渲染 ----------
-    // 获取某天打卡完成数量
+    // 打卡日历
     function getCheckinsCountOnDate(dateStr){
         let cnt=0;
         for(let task of tasks){
@@ -679,17 +793,10 @@
         }
         return cnt;
     }
-    // 获取某天小确幸数量 (非空条目数)
-    function getGratitudeCountOnDate(dateStr){
-        const arr=gratitudes[dateStr];
-        if(!arr) return 0;
-        return arr.filter(t=>t && t.trim().length>0).length;
-    }
-    // 渲染打卡日历
     function renderCheckCalendar(){
         const year=checkCalendarYear, month=checkCalendarMonth;
         const firstDay=new Date(year,month,1);
-        const startWeekday=firstDay.getDay()===0?6:firstDay.getDay()-1; // 周一为0
+        let startWeekday=firstDay.getDay()===0?6:firstDay.getDay()-1;
         const daysInMonth=new Date(year,month+1,0).getDate();
         const prevMonthDays=new Date(year,month,0).getDate();
         const grid=document.getElementById('checkCalendarGrid');
@@ -697,33 +804,45 @@
         let html='';
         for(let i=0;i<startWeekday;i++){
             const prevDay=prevMonthDays-startWeekday+i+1;
-            const prevDateStr=`${year}-${String(month).padStart(2,'0')}-${String(prevDay).padStart(2,'0')}`;
             const prevDate=new Date(year,month-1,prevDay);
             const py=prevDate.getFullYear(), pm=prevDate.getMonth()+1;
             const dateKey=`${py}-${String(pm).padStart(2,'0')}-${String(prevDay).padStart(2,'0')}`;
-            const checkCount=getCheckinsCountOnDate(dateKey);
-            html+=`<div class="cal-day other-month"><div class="day-number">${prevDay}</div><div class="check-mark">${checkCount>0?`✔️${checkCount}`:''}</div></div>`;
+            const count=getCheckinsCountOnDate(dateKey);
+            html+=`<div class="cal-day other-month"><div class="day-number">${prevDay}</div><div class="badge-mark">${count>0?`✔️${count}`:''}</div></div>`;
         }
         for(let d=1;d<=daysInMonth;d++){
             const dateKey=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-            const checkCount=getCheckinsCountOnDate(dateKey);
-            html+=`<div class="cal-day"><div class="day-number">${d}</div><div class="check-mark">${checkCount>0?`<span>${checkCount}/${tasks.length}</span>`:''}</div></div>`;
+            const count=getCheckinsCountOnDate(dateKey);
+            html+=`<div class="cal-day"><div class="day-number">${d}</div><div class="badge-mark">${count>0?`<span>${count}/${tasks.length}</span>`:''}</div></div>`;
         }
         let totalCells=42;
         let currentCells=startWeekday+daysInMonth;
         let remaining=totalCells-currentCells;
         for(let i=1;i<=remaining;i++){
-            const nextDateStr=`${year}-${String(month+2).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
             const nextDate=new Date(year,month+1,i);
             const ny=nextDate.getFullYear(), nm=nextDate.getMonth()+1;
             const dateKey=`${ny}-${String(nm).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
-            const checkCount=getCheckinsCountOnDate(dateKey);
-            html+=`<div class="cal-day other-month"><div class="day-number">${i}</div><div class="check-mark">${checkCount>0?`✔️${checkCount}`:''}</div></div>`;
+            const count=getCheckinsCountOnDate(dateKey);
+            html+=`<div class="cal-day other-month"><div class="day-number">${i}</div><div class="badge-mark">${count>0?`✔️${count}`:''}</div></div>`;
         }
         grid.innerHTML=html;
         document.getElementById('checkMonthYear').innerText=`${year}年${month+1}月`;
     }
-    // 渲染小确幸日历
+    function setCheckCalendarMonth(delta){
+        let newMonth=checkCalendarMonth+delta;
+        let newYear=checkCalendarYear;
+        if(newMonth<0){ newMonth=11; newYear--; }
+        else if(newMonth>11){ newMonth=0; newYear++; }
+        checkCalendarYear=newYear; checkCalendarMonth=newMonth;
+        renderCheckCalendar();
+    }
+
+    // 确幸日历
+    function getGratitudeCountOnDate(dateStr){
+        const arr=gratitudes[dateStr];
+        if(!arr) return 0;
+        return arr.filter(t=>t && t.trim().length>0).length;
+    }
     function renderGratCalendar(){
         const year=gratCalendarYear, month=gratCalendarMonth;
         const firstDay=new Date(year,month,1);
@@ -738,13 +857,13 @@
             const prevDate=new Date(year,month-1,prevDay);
             const py=prevDate.getFullYear(), pm=prevDate.getMonth()+1;
             const dateKey=`${py}-${String(pm).padStart(2,'0')}-${String(prevDay).padStart(2,'0')}`;
-            const gratCount=getGratitudeCountOnDate(dateKey);
-            html+=`<div class="cal-day other-month"><div class="day-number">${prevDay}</div><div class="grat-mark">${gratCount>0?`❤️${gratCount}`:''}</div></div>`;
+            const count=getGratitudeCountOnDate(dateKey);
+            html+=`<div class="cal-day other-month"><div class="day-number">${prevDay}</div><div class="badge-mark">${count>0?`❤️${count}`:''}</div></div>`;
         }
         for(let d=1;d<=daysInMonth;d++){
             const dateKey=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-            const gratCount=getGratitudeCountOnDate(dateKey);
-            html+=`<div class="cal-day"><div class="day-number">${d}</div><div class="grat-mark">${gratCount>0?`❤️ ${gratCount}`:''}</div></div>`;
+            const count=getGratitudeCountOnDate(dateKey);
+            html+=`<div class="cal-day"><div class="day-number">${d}</div><div class="badge-mark">${count>0?`❤️ ${count}`:''}</div></div>`;
         }
         let totalCells=42;
         let currentCells=startWeekday+daysInMonth;
@@ -753,27 +872,11 @@
             const nextDate=new Date(year,month+1,i);
             const ny=nextDate.getFullYear(), nm=nextDate.getMonth()+1;
             const dateKey=`${ny}-${String(nm).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
-            const gratCount=getGratitudeCountOnDate(dateKey);
-            html+=`<div class="cal-day other-month"><div class="day-number">${i}</div><div class="grat-mark">${gratCount>0?`❤️${gratCount}`:''}</div></div>`;
+            const count=getGratitudeCountOnDate(dateKey);
+            html+=`<div class="cal-day other-month"><div class="day-number">${i}</div><div class="badge-mark">${count>0?`❤️${count}`:''}</div></div>`;
         }
         grid.innerHTML=html;
         document.getElementById('gratMonthYear').innerText=`${year}年${month+1}月`;
-    }
-
-    function refreshCalendarIfActive(){
-        const activePage=document.querySelector('.page.active-page')?.id;
-        if(activePage==='calCheckPage') renderCheckCalendar();
-        else if(activePage==='calGratPage') renderGratCalendar();
-    }
-
-    // 切换月份
-    function setCheckCalendarMonth(delta){
-        let newMonth=checkCalendarMonth+delta;
-        let newYear=checkCalendarYear;
-        if(newMonth<0){ newMonth=11; newYear--; }
-        else if(newMonth>11){ newMonth=0; newYear++; }
-        checkCalendarYear=newYear; checkCalendarMonth=newMonth;
-        renderCheckCalendar();
     }
     function setGratCalendarMonth(delta){
         let newMonth=gratCalendarMonth+delta;
@@ -784,71 +887,235 @@
         renderGratCalendar();
     }
 
-    // Tab切换
-    function switchTab(tabId){
-        const pages=['checkPage','journalPage','calCheckPage','calGratPage'];
-        pages.forEach(pid=>{ document.getElementById(pid).classList.remove('active-page'); });
-        document.getElementById(tabId).classList.add('active-page');
-        document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));
-        const map={'check':'打卡','journal':'确幸','calCheck':'打卡日历','calGrat':'确幸日历'};
-        const targetText=map[tabId];
-        document.querySelectorAll('.tab-btn').forEach(btn=>{ if(btn.innerText.includes(targetText) || (tabId==='calCheck'&&btn.innerText==='打卡日历')||(tabId==='calGrat'&&btn.innerText==='确幸日历')) btn.classList.add('active'); });
-        if(tabId==='checkPage') renderCheckPage();
-        else if(tabId==='journalPage'){ updateJournalDate(); loadGratitudesForToday(); }
-        else if(tabId==='calCheckPage') renderCheckCalendar();
-        else if(tabId==='calGratPage') renderGratCalendar();
+    // 子弹笔记待办
+    function renderBulletPage() {
+        const container = document.getElementById('bulletListContainer');
+        if (!container) return;
+        const undone = bulletTasks.filter(t => !t.completed).length;
+        document.getElementById('bulletStats').innerText = `未完成 ${undone}`;
+        if (bulletTasks.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:32px; color:#9fb0cc;">✨ 添加第一个待办，开始子弹笔记 ✨</div>';
+            return;
+        }
+        let html = '';
+        bulletTasks.forEach(task => {
+            const dueDateStr = task.dueDate ? task.dueDate : '';
+            const displayDate = dueDateStr ? dueDateStr.slice(5) : '无日期';
+            html += `
+                <div class="bullet-item" data-id="${task.id}">
+                    <div class="bullet-left">
+                        <div class="bullet-checkbox ${task.completed ? 'completed' : ''}" data-id="${task.id}">${task.completed ? '✓' : ''}</div>
+                        <div class="bullet-text ${task.completed ? 'completed-text' : ''}">${escapeHtml(task.text)}</div>
+                        <span class="bullet-date">📅 ${displayDate}</span>
+                    </div>
+                    <div class="bullet-actions">
+                        <button class="bullet-edit" data-id="${task.id}" title="编辑">✎</button>
+                        <button class="bullet-delete" data-id="${task.id}" title="删除">🗑️</button>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+        document.querySelectorAll('.bullet-checkbox').forEach(cb => {
+            cb.addEventListener('click', (e) => {
+                const id = cb.getAttribute('data-id');
+                toggleTodoCompleted(id);
+            });
+        });
+        document.querySelectorAll('.bullet-edit').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-id');
+                editTodoText(id);
+            });
+        });
+        document.querySelectorAll('.bullet-delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-id');
+                deleteTodoItem(id);
+            });
+        });
+    }
+    function toggleTodoCompleted(id) {
+        const todo = bulletTasks.find(t => t.id === id);
+        if (todo) {
+            todo.completed = !todo.completed;
+            saveBulletTasks();
+            renderBulletPage();
+            renderTodoCalendar();
+            showToast(todo.completed ? '🎉 已完成，很棒！' : '已标记为未完成', 1000);
+            fireConfetti();
+        }
+    }
+    function editTodoText(id) {
+        const todo = bulletTasks.find(t => t.id === id);
+        if (!todo) return;
+        let newText = prompt('编辑待办内容', todo.text);
+        if (newText && newText.trim()) {
+            todo.text = newText.trim();
+            saveBulletTasks();
+            renderBulletPage();
+            showToast('已更新', 800);
+        }
+    }
+    function deleteTodoItem(id) {
+        if (confirm('删除这条待办？')) {
+            bulletTasks = bulletTasks.filter(t => t.id !== id);
+            saveBulletTasks();
+            renderBulletPage();
+            renderTodoCalendar();
+            showToast('已删除', 800);
+        }
+    }
+    function addBulletTask(text, dueDate) {
+        if (!text.trim()) { showToast('请填写待办内容', 800); return false; }
+        const newId = 'todo_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+        bulletTasks.push({
+            id: newId,
+            text: text.trim(),
+            dueDate: dueDate || getTodayStr(),
+            completed: false,
+            createdAt: new Date().toISOString()
+        });
+        saveBulletTasks();
+        renderBulletPage();
+        renderTodoCalendar();
+        showToast(`➕ 已添加「${text.trim()}」`, 1200);
+        return true;
     }
 
-    // 重置所有数据
-    function fullReset(){
-        if(!confirm("重置将清空所有打卡记录、任务清单、小确幸，恢复默认示例")) return;
-        tasks=[{ id: 't1', name: '📖 阅读20分钟', order:1 },{ id: 't2', name: '🧘 冥想片刻', order:2 },{ id: 't3', name: '💧 喝足1.5L水', order:3 }];
-        taskCheckins={}; gratitudes={};
-        saveTasksData(); saveGratitudes();
-        renderCheckPage(); updateJournalDate(); loadGratitudesForToday();
-        const now=new Date(); checkCalendarYear=now.getFullYear(); checkCalendarMonth=now.getMonth();
-        gratCalendarYear=now.getFullYear(); gratCalendarMonth=now.getMonth();
-        renderCheckCalendar(); renderGratCalendar();
-        showToast("已重置所有数据",1500);
+    // 待办日历
+    function getUnfinishedTodoCountByDate(dateStr) {
+        return bulletTasks.filter(t => t.dueDate === dateStr && !t.completed).length;
+    }
+    function renderTodoCalendar() {
+        let year = todoCalendarYear, month = todoCalendarMonth;
+        const firstDay = new Date(year, month, 1);
+        let startWeekday = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
+        const daysInMonth = new Date(year, month+1, 0).getDate();
+        const prevMonthDays = new Date(year, month, 0).getDate();
+        const grid = document.getElementById('todoCalendarGrid');
+        if (!grid) return;
+        let html = '';
+        for (let i = 0; i < startWeekday; i++) {
+            const prevDay = prevMonthDays - startWeekday + i + 1;
+            const prevDate = new Date(year, month-1, prevDay);
+            const py = prevDate.getFullYear(), pm = prevDate.getMonth()+1;
+            const dateKey = `${py}-${String(pm).padStart(2,'0')}-${String(prevDay).padStart(2,'0')}`;
+            const count = getUnfinishedTodoCountByDate(dateKey);
+            html += `<div class="cal-day other-month"><div class="day-number">${prevDay}</div><div class="badge-mark">${count > 0 ? `❌${count}` : ''}</div></div>`;
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+            const count = getUnfinishedTodoCountByDate(dateKey);
+            html += `<div class="cal-day"><div class="day-number">${d}</div><div class="badge-mark">${count > 0 ? `❌ ${count}` : ''}</div></div>`;
+        }
+        let totalCells = 42;
+        let currentCells = startWeekday + daysInMonth;
+        let remaining = totalCells - currentCells;
+        for (let i = 1; i <= remaining; i++) {
+            const nextDate = new Date(year, month+1, i);
+            const ny = nextDate.getFullYear(), nm = nextDate.getMonth()+1;
+            const dateKey = `${ny}-${String(nm).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+            const count = getUnfinishedTodoCountByDate(dateKey);
+            html += `<div class="cal-day other-month"><div class="day-number">${i}</div><div class="badge-mark">${count > 0 ? `❌${count}` : ''}</div></div>`;
+        }
+        grid.innerHTML = html;
+        document.getElementById('todoMonthYear').innerText = `${year}年${month+1}月`;
+    }
+    function setTodoCalendarMonth(delta) {
+        let newMonth = todoCalendarMonth + delta;
+        let newYear = todoCalendarYear;
+        if (newMonth < 0) { newMonth = 11; newYear--; }
+        else if (newMonth > 11) { newMonth = 0; newYear++; }
+        todoCalendarYear = newYear; todoCalendarMonth = newMonth;
+        renderTodoCalendar();
+    }
+
+    // 重置
+    function fullReset() {
+        if (!confirm('重置将清空所有打卡、小确幸、待办任务，恢复初始示例。确定吗？')) return;
+        tasks = [{ id: 't1', name: '📖 阅读20分钟', order:1 },{ id: 't2', name: '🧘 冥想片刻', order:2 },{ id: 't3', name: '💧 喝足1.5L水', order:3 }];
+        taskCheckins = {};
+        gratitudes = {};
+        bulletTasks = [
+            { id: 'b1', text: '✅ 完成项目方案', dueDate: getTodayStr(), completed: false, createdAt: new Date().toISOString() },
+            { id: 'b2', text: '📞 给家人打电话', dueDate: getTodayStr(), completed: false, createdAt: new Date().toISOString() }
+        ];
+        saveTasksData(); saveGratitudes(); saveBulletTasks();
+        renderCheckPage(); updateJournalDate(); loadGratitudesForToday(); renderBulletPage();
+        const now = new Date();
+        checkCalendarYear = now.getFullYear(); checkCalendarMonth = now.getMonth();
+        gratCalendarYear = now.getFullYear(); gratCalendarMonth = now.getMonth();
+        todoCalendarYear = now.getFullYear(); todoCalendarMonth = now.getMonth();
+        renderCheckCalendar(); renderGratCalendar(); renderTodoCalendar();
+        showToast('已重置为默认数据', 1500);
         fireConfetti();
     }
 
-    function showToast(msg,dur=1500){ const t=document.getElementById('toast'); t.innerText=msg; t.style.opacity='1'; t.style.visibility='visible'; setTimeout(()=>{ t.style.opacity='0'; t.style.visibility='hidden'; },dur); }
-    function escapeHtml(str){ return str.replace(/[&<>]/g,function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    // Tab 切换
+    function switchTab(tabId) {
+        const pages = ['checkPage', 'journalPage', 'bulletPage', 'calCheckPage', 'calGratPage', 'calTodoPage'];
+        pages.forEach(pid => { document.getElementById(pid).classList.remove('active-page'); });
+        document.getElementById(tabId).classList.add('active-page');
+        const tabLabels = { checkPage:'打卡', journalPage:'确幸', bulletPage:'待办·子弹', calCheckPage:'打卡日历', calGratPage:'确幸日历', calTodoPage:'待办日历' };
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.innerText === tabLabels[tabId]) btn.classList.add('active');
+        });
+        if (tabId === 'checkPage') renderCheckPage();
+        else if (tabId === 'journalPage') { updateJournalDate(); loadGratitudesForToday(); }
+        else if (tabId === 'bulletPage') renderBulletPage();
+        else if (tabId === 'calCheckPage') renderCheckCalendar();
+        else if (tabId === 'calGratPage') renderGratCalendar();
+        else if (tabId === 'calTodoPage') renderTodoCalendar();
+    }
 
-    // 初始化事件
-    function bindEvents(){
-        document.querySelectorAll('.tab-btn').forEach(btn=>{
-            btn.addEventListener('click',(e)=>{
-                const txt=btn.innerText;
-                if(txt.includes('打卡') && !txt.includes('日历')) switchTab('checkPage');
-                else if(txt.includes('确幸') && !txt.includes('日历')) switchTab('journalPage');
-                else if(txt==='打卡日历') switchTab('calCheckPage');
-                else if(txt==='确幸日历') switchTab('calGratPage');
+    // 事件绑定
+    function bindEvents() {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const txt = btn.innerText;
+                if (txt === '打卡') switchTab('checkPage');
+                else if (txt === '确幸') switchTab('journalPage');
+                else if (txt === '待办·子弹') switchTab('bulletPage');
+                else if (txt === '打卡日历') switchTab('calCheckPage');
+                else if (txt === '确幸日历') switchTab('calGratPage');
+                else if (txt === '待办日历') switchTab('calTodoPage');
             });
         });
         document.getElementById('quickAddTaskBtn')?.addEventListener('click',()=>{ let name=prompt("新打卡事项"); if(name) addNewTask(name); });
         document.getElementById('addTaskBtn')?.addEventListener('click',()=>{ let inp=document.getElementById('newTaskInput'); if(inp.value.trim()) addNewTask(inp.value.trim()); inp.value=''; });
-        document.getElementById('globalResetBtn')?.addEventListener('click',fullReset);
-        document.getElementById('saveGratitudeBtn')?.addEventListener('click',saveTodayGratitudes);
-        document.getElementById('refreshQuoteBtn')?.addEventListener('click',refreshQuote);
+        document.getElementById('globalResetBtn')?.addEventListener('click', fullReset);
+        document.getElementById('saveGratitudeBtn')?.addEventListener('click', saveTodayGratitudes);
+        document.getElementById('refreshQuoteBtn')?.addEventListener('click', refreshQuote);
         document.getElementById('checkPrevMonth')?.addEventListener('click',()=>setCheckCalendarMonth(-1));
         document.getElementById('checkNextMonth')?.addEventListener('click',()=>setCheckCalendarMonth(1));
         document.getElementById('gratPrevMonth')?.addEventListener('click',()=>setGratCalendarMonth(-1));
         document.getElementById('gratNextMonth')?.addEventListener('click',()=>setGratCalendarMonth(1));
-        const taskInput=document.getElementById('newTaskInput');
+        document.getElementById('addTodoBtn')?.addEventListener('click', () => {
+            const text = document.getElementById('newTodoText').value;
+            const dueDate = document.getElementById('newTodoDate').value || getTodayStr();
+            if (addBulletTask(text, dueDate)) {
+                document.getElementById('newTodoText').value = '';
+                document.getElementById('newTodoDate').value = '';
+            }
+        });
+        document.getElementById('todoPrevMonth')?.addEventListener('click', () => setTodoCalendarMonth(-1));
+        document.getElementById('todoNextMonth')?.addEventListener('click', () => setTodoCalendarMonth(1));
+        const taskInput = document.getElementById('newTaskInput');
         if(taskInput) taskInput.addEventListener('keypress',(e)=>{ if(e.key==='Enter'){ if(taskInput.value.trim()) addNewTask(taskInput.value.trim()); taskInput.value=''; } });
     }
 
-    function init(){
+    function init() {
         loadData();
+        const now = new Date();
+        checkCalendarYear = now.getFullYear(); checkCalendarMonth = now.getMonth();
+        gratCalendarYear = now.getFullYear(); gratCalendarMonth = now.getMonth();
+        todoCalendarYear = now.getFullYear(); todoCalendarMonth = now.getMonth();
         bindEvents();
-        const now=new Date();
-        checkCalendarYear=now.getFullYear(); checkCalendarMonth=now.getMonth();
-        gratCalendarYear=now.getFullYear(); gratCalendarMonth=now.getMonth();
         renderCheckPage();
         updateJournalDate(); loadGratitudesForToday();
-        renderCheckCalendar(); renderGratCalendar();
+        renderCheckCalendar(); renderGratCalendar(); renderBulletPage(); renderTodoCalendar();
         initRandomQuote();
     }
     init();
